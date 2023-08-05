@@ -1,4 +1,4 @@
-package com.f10tools.batto.ui.theme
+package com.f10tools.batto.ui.t
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Shapes

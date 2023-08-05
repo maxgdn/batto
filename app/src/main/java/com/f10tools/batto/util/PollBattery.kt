@@ -14,6 +14,8 @@ fun Context.pollBattery(): BatteryEvent {
         context.registerReceiver(null, ifilter)
     }
 
+    val mBatteryManager = context.getSystemService(Context.BATTERY_SERVICE) as BatteryManager
+
     val status: Int = batteryStatus?.getIntExtra(BatteryManager.EXTRA_STATUS, -1) ?: -1
     val isCharging: Boolean = status == BatteryManager.BATTERY_STATUS_CHARGING
             || status == BatteryManager.BATTERY_STATUS_FULL
@@ -29,7 +31,18 @@ fun Context.pollBattery(): BatteryEvent {
     val batteryTechnology = batteryStatus?.extras?.getString(BatteryManager.EXTRA_TECHNOLOGY)
     val batteryPresent = batteryStatus?.extras?.getBoolean(BatteryManager.EXTRA_PRESENT)
     val batteryTemperature = batteryStatus?.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, 0)?.toFloat()?.div(10)
-    val batteryVoltage = batteryStatus?.getIntExtra(BatteryManager.EXTRA_VOLTAGE, 0)?.toFloat()?.div(1000)
+    val batteryVoltage = batteryStatus?.getIntExtra(BatteryManager.EXTRA_VOLTAGE, 0)?.toFloat()?.let {
+        //Some devices return units in mV others V, make all units V
+        if(it > 1000) {
+            it.div(1000)
+        } else it
+    } ?: -1f
+    val batteryCurrent = mBatteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CURRENT_NOW)
+    val batteryCurrentAverage = mBatteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CURRENT_AVERAGE)
+    val batteryEnergyCounter = mBatteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_ENERGY_COUNTER) // TODO investigate returns INT_MIN on Samsung devices
+    val batteryChargeCounter = mBatteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CHARGE_COUNTER)
+
+    val timestamp = currentUTCTime()
 
     return BatteryEvent(
         uuid = UUID.randomUUID().toString(),
@@ -42,6 +55,10 @@ fun Context.pollBattery(): BatteryEvent {
         batteryPresent = batteryPresent,
         batteryTemperature = batteryTemperature,
         batteryVoltage = batteryVoltage,
-        timestamp = currentUTCTime()
+        batteryCurrent = batteryCurrent,
+        batteryCurrentAverage = batteryCurrentAverage,
+        batteryEnergyCounter = batteryEnergyCounter,
+        batteryChargeCounter = batteryChargeCounter,
+        timestamp = timestamp
     )
 }

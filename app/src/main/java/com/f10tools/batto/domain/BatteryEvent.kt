@@ -13,9 +13,14 @@ package com.f10tools.batto.domain
 *   @property batteryPresent if a battery is in the device.
 *   @property batteryTemperature temperature of battery in Celsius.
 *   @property batteryVoltage voltage in unit V.
+*   @property batteryCurrent instantaneous battery current in microamperes, as an integer.
+*   @property batteryCurrentAverage average battery current in microamperes, as an integer.
+*   @property batteryEnergyCounter average battery current in microamperes, as an integer.
+*   @property batteryChargeCounter battery capacity in microampere-hours, as an integer.
 *   @property timestamp in UTC ISO 8601 format
 *
 * */
+
 data class BatteryEvent(
     val uuid: String,
     val status: Int = -1,
@@ -27,5 +32,9 @@ data class BatteryEvent(
     val batteryPresent: Boolean? = null,
     val batteryTemperature: Float? = null,
     val batteryVoltage: Float? = null,
+    val batteryCurrent: Int = -1,
+    val batteryCurrentAverage: Int = -1,
+    val batteryEnergyCounter: Int = -1, // TODO investigate returns INT_MIN on Samsung devices
+    val batteryChargeCounter: Int = -1,
     val timestamp: String,
 )

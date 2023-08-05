@@ -17,6 +17,10 @@ data class BatteryEventEntity(
     @ColumnInfo(name = "batteryPresent") val batteryPresent: Boolean?,
     @ColumnInfo(name = "batteryTemperature") val batteryTemperature: Float?,
     @ColumnInfo(name = "batteryVoltage") val batteryVoltage: Float?,
+    @ColumnInfo(name = "batteryCurrent") val batteryCurrent: Int,
+    @ColumnInfo(name = "batteryCurrentAverage") val batteryCurrentAverage: Int,
+    @ColumnInfo(name = "batteryEnergyCounter") val batteryEnergyCounter: Int,
+    @ColumnInfo(name = "batteryChargeCounter") val batteryChargeCounter: Int,
     @ColumnInfo(name = "timestamp") val timestamp: String,
 )
 
@@ -32,6 +36,10 @@ fun BatteryEventEntity.toBatteryEvent(): BatteryEvent {
         batteryPresent = batteryPresent,
         batteryTemperature = batteryTemperature,
         batteryVoltage = batteryVoltage,
+        batteryCurrent = batteryCurrent,
+        batteryCurrentAverage = batteryCurrentAverage,
+        batteryEnergyCounter = batteryEnergyCounter,
+        batteryChargeCounter = batteryChargeCounter,
         timestamp = timestamp
     )
 }
@@ -48,6 +56,10 @@ fun fromBatteryEvent(event: BatteryEvent): BatteryEventEntity {
         batteryPresent = event.batteryPresent,
         batteryTemperature = event.batteryTemperature,
         batteryVoltage = event.batteryVoltage,
+        batteryCurrent = event.batteryCurrent,
+        batteryCurrentAverage = event.batteryCurrentAverage,
+        batteryEnergyCounter = event.batteryEnergyCounter,
+        batteryChargeCounter = event.batteryChargeCounter,
         timestamp = event.timestamp
     )
 }

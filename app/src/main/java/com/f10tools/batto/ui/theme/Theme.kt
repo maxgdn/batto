@@ -1,10 +1,12 @@
-package com.f10tools.batto.ui.theme
+package com.f10tools.batto.ui.t
 
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material.Colors
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 
 private val DarkColorPalette = darkColors(
     primary = Purple200,
@@ -42,3 +44,25 @@ fun BattoTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable 
         content = content
     )
 }
+
+// Use with MaterialTheme.colors.snackbarAction
+val Colors.springGreen: Color
+    get() = SpringGreen
+val Colors.deepBlueSky: Color
+    get() = DeepBlueSky
+val Colors.mistyRose: Color
+    get() = MistyRose
+val Colors.cerise: Color
+    get() = Cerise
+val Colors.black: Color
+    get() = Black
+val Colors.cream: Color
+    get() = Cream
+val Colors.teaGreen: Color
+    get() = TeaGreen
+val Colors.pistachio: Color
+    get() = Pistachio
+val Colors.brandeisBlue: Color
+    get() = BrandeisBlue
+val Colors.madder: Color
+    get() = Madder
